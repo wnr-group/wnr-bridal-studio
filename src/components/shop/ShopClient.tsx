@@ -14,18 +14,32 @@ export default function ShopClient({ products }: ShopClientProps) {
 
   const ITEMS_PER_PAGE = 8;
 
-  // Dynamically derive unique work types from products
+  // Dynamically derive unique work types from products. Values are grouped by a
+  // trimmed, case-insensitive key so inconsistent entries like "Aari", "aari",
+  // and " Aari " are treated as one filter — without merging genuinely distinct
+  // terms (e.g. "Aari" and "Aari Work" remain separate, since their keys differ).
   const filters = useMemo(() => {
-    const types = [...new Set(products.flatMap((p) => p.work_types ?? []))].sort();
-    return ["ALL", ...types];
+    const labelByKey = new Map<string, string>();
+    for (const product of products) {
+      for (const type of product.work_types ?? []) {
+        const key = type.trim().toLowerCase();
+        if (key && !labelByKey.has(key)) {
+          labelByKey.set(key, type.trim());
+        }
+      }
+    }
+    const labels = [...labelByKey.values()].sort((a, b) => a.localeCompare(b));
+    return ["ALL", ...labels];
   }, [products]);
 
-  // Filter products based on selected work type
+  // Filter products based on selected work type, using the same trimmed,
+  // case-insensitive comparison used to derive the filter list above.
   const filteredProducts = useMemo(() => {
     if (activeFilter === "ALL") return [...products];
 
+    const normalizedFilter = activeFilter.trim().toLowerCase();
     return products.filter((product) =>
-      product.work_types?.includes(activeFilter)
+      product.work_types?.some((type) => type.trim().toLowerCase() === normalizedFilter)
     );
   }, [activeFilter, products]);
 

@@ -25,13 +25,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "MEI Bridal Couture — Handcrafted Elegance",
-    template: "%s | MEI Bridal Couture",
+    default: "WNR Bridal Studio — Handcrafted Elegance",
+    template: "%s | WNR Bridal Studio",
   },
   description:
     "Premium Indian bridal wear — Lehengas, Sarees, and Bespoke Couture. Handcrafted with Aari, Zardosi, and Mirror embroidery.",
   openGraph: {
-    title: "MEI Bridal Couture — Handcrafted Elegance",
+    title: "WNR Bridal Studio — Handcrafted Elegance",
     description:
       "Premium Indian bridal wear — Lehengas, Sarees, and Bespoke Couture. Handcrafted with Aari, Zardosi, and Mirror embroidery.",
     url: SITE_URL,
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MEI Bridal Couture — Handcrafted Elegance",
+    title: "WNR Bridal Studio — Handcrafted Elegance",
     description:
       "Premium Indian bridal wear — Lehengas, Sarees, and Bespoke Couture. Handcrafted with Aari, Zardosi, and Mirror embroidery.",
   },
@@ -61,10 +61,10 @@ export default async function RootLayout({
 
   const postalAddress = {
     "@type": "PostalAddress",
-    streetAddress: "17 Lourdh Swamy Pillai Street, Ayyappan Nagar, K.K. Nagar",
-    addressLocality: "Tiruchirappalli",
+    streetAddress: "115 D, First Floor, TIDEL Park, No.4, Rajiv Gandhi Salai, Taramani",
+    addressLocality: "Chennai",
     addressRegion: "Tamil Nadu",
-    postalCode: "620021",
+    postalCode: "600113",
     addressCountry: "IN",
   };
 
@@ -76,9 +76,9 @@ export default async function RootLayout({
         "@id": `${SITE_URL}/#organization`,
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/images/elephant-gold.png`,
-        email: "admin@couturemei.com",
-        telephone: "+91 99301 00431",
+        logo: `${SITE_URL}/images/app-logo.png`,
+        email: "admin@wnrtech.com",
+        telephone: "+91 44 4556 6778",
         description:
           "Premium Indian bridal wear — Lehengas, Sarees, and Bespoke Couture. Handcrafted with Aari, Zardosi, and Mirror embroidery.",
         address: postalAddress,
@@ -89,8 +89,8 @@ export default async function RootLayout({
         name: SITE_NAME,
         image: `${SITE_URL}/opengraph-image.png`,
         url: SITE_URL,
-        email: "admin@couturemei.com",
-        telephone: "+91 99301 00431",
+        email: "admin@wnrtech.com",
+        telephone: "+91 44 4556 6778",
         priceRange: "₹₹₹",
         description:
           "Premium Indian bridal wear — Lehengas, Sarees, and Bespoke Couture. Handcrafted with Aari, Zardosi, and Mirror embroidery.",

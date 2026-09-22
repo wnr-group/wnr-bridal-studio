@@ -228,10 +228,7 @@ export default function SearchModal({ isOpen, onClose, products }: SearchModalPr
           ) : (
             <ul>
               {results.map((product, index) => {
-                const imageSrc =
-                  product.images?.[0] ||
-                  product.image_url ||
-                  "/images/placeholder.jpg";
+                const imageSrc = product.images?.[0] || product.image_url || null;
                 return (
                   <li key={product.id}>
                     <Link
@@ -243,15 +240,21 @@ export default function SearchModal({ isOpen, onClose, products }: SearchModalPr
                           : "hover:bg-[#f5f0ea]"
                       }`}
                     >
-                      <div className="relative w-12 h-12 flex-shrink-0 rounded overflow-hidden bg-[#e8e0d5]">
-                        <Image
-                          src={imageSrc}
-                          alt={product.name}
-                          fill
-                          sizes="48px"
-                          className="object-cover"
-                          unoptimized
-                        />
+                      <div className="relative w-12 h-12 flex-shrink-0 rounded overflow-hidden bg-[#e8e0d5] flex items-center justify-center">
+                        {imageSrc ? (
+                          <Image
+                            src={imageSrc}
+                            alt={product.name}
+                            fill
+                            sizes="48px"
+                            className="object-cover"
+                            unoptimized
+                          />
+                        ) : (
+                          <span className="text-[#9a9a9a] text-[7px] uppercase tracking-wider font-semibold select-none text-center px-0.5">
+                            No Image
+                          </span>
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-[#1a1a1a] font-inter truncate">

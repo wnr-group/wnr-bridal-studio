@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "The Atelier — Our Story & Craftsmanship",
   description:
-    "Discover the heritage behind MEI Bridal Couture. Learn about our master karigars and traditional embroidery techniques like Zardosi, Aari, and Mirror work.",
+    "Discover the heritage behind WNR Bridal Studio. Learn about our master karigars and traditional embroidery techniques like Zardosi, Aari, and Mirror work.",
   alternates: { canonical: "/atelier" },
 };
 
@@ -17,7 +17,7 @@ export default function AtelierPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero_lehenga.png"
-            alt="MEI Atelier workspace"
+            alt="WNR Bridal Studio Atelier workspace"
             fill
             priority
             sizes="100vw"
@@ -50,7 +50,7 @@ export default function AtelierPage() {
                 Every Stitch Tells a Story
               </h2>
               <p className="text-sm text-[#4a4a4a] leading-relaxed font-inter font-light">
-                MEI Bridal Couture was founded on a singular belief: that the artistry of Indian hand-embroidery deserves to flourish in the modern world. Our atelier brings together master karigars — some with over three decades of experience — to create bridal pieces that are as much works of art as they are garments.
+                WNR Bridal Studio was founded on a singular belief: that the artistry of Indian hand-embroidery deserves to flourish in the modern world. Our atelier brings together master karigars — some with over three decades of experience — to create bridal pieces that are as much works of art as they are garments.
               </p>
               <p className="text-sm text-[#4a4a4a] leading-relaxed font-inter font-light">
                 Each lehenga begins as a sketch informed by personal consultations. From there, our artisans select fabrics, develop custom colour palettes, and meticulously embroider every motif by hand — a process that can take 200 to 600 hours per piece.
@@ -215,7 +215,7 @@ export default function AtelierPage() {
             Begin Your Bespoke Journey
           </h2>
           <p className="text-sm text-[#4a4a4a] leading-relaxed font-inter font-light">
-            Every MEI creation starts with a conversation. Tell us about your vision and let our artisans bring it to life.
+            Every WNR Bridal Studio creation starts with a conversation. Tell us about your vision and let our artisans bring it to life.
           </p>
           <div className="pt-2">
             <Link

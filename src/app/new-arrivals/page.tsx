@@ -15,7 +15,7 @@ export async function generateMetadata({
   return {
     title: "New Arrivals — Season 2026",
     description:
-      "The latest bridal lehengas, sarees, and couture from the MEI atelier. Explore our newest handcrafted masterpieces for the modern bride.",
+      "The latest bridal lehengas, sarees, and couture from the WNR Bridal Studio atelier. Explore our newest handcrafted masterpieces for the modern bride.",
     alternates: { canonical: "/new-arrivals" },
     // Paginated views are duplicate-ish; only index the first page.
     robots: page > 1 ? { index: false, follow: true } : undefined,

@@ -671,7 +671,7 @@ export default function ContactClient() {
             <div className="relative aspect-[2/1] w-full border border-[#e8e0d5]/40 overflow-hidden">
               <Image
                 src="/images/hero_lehenga.png"
-                alt="MEI couture showroom view"
+                alt="WNR Bridal Studio showroom view"
                 fill
                 sizes="(max-w-7xl) 50vw, 100vw"
                 className="object-cover"

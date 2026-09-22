@@ -7,7 +7,7 @@ import HeroBanner from "@/components/home/HeroBanner";
 
 
 export const metadata: Metadata = {
-  title: "MEI Bridal Couture — Handcrafted Lehengas & Bridal Sarees",
+  title: "WNR Bridal Studio — Handcrafted Lehengas & Bridal Sarees",
   description:
     "Premium Indian bridal wear — Lehengas, Sarees, and Bespoke Couture. Handcrafted with traditional Aari, Zardosi, and Mirror embroidery.",
   alternates: { canonical: "/" },
@@ -51,7 +51,7 @@ export default async function Home() {
             </h2>
             <p className="text-sm sm:text-base text-[#4a4a4a] leading-relaxed font-inter font-light">
               From heirloom bridal lehengas to hand-embroidered sarees and reception
-              gowns, every MEI collection is designed for the modern Indian bride who
+              gowns, every WNR Bridal Studio collection is designed for the modern Indian bride who
               values heritage craftsmanship. Explore our curated categories to find
               the silhouette that carries your story down the aisle.
             </p>
