@@ -189,7 +189,7 @@ export default function CartPage() {
 
               <div className="flex justify-between items-baseline">
                 <span className="text-sm font-semibold uppercase tracking-widest text-[#1a1a1a]">
-                  Subtotal
+                  Total
                 </span>
                 <span className="text-xl font-inter font-bold text-[#c9a465]">
                   {formatCurrency(subtotal)}

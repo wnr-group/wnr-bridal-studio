@@ -278,7 +278,7 @@ export default function CheckoutPage() {
         amount,
         currency,
         order_id,
-        name: "MEI Bridal Couture",
+        name: "WNR Bridal Studio",
         prefill: { name: formData.name, email: formData.email, contact: formData.phone },
         theme: { color: "#c9a465" },
 

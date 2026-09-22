@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProductBySlug(normalizedSlug);
   if (product) {
     const title = product.name;
-    const description = product.short_description || product.description || `Buy ${product.name} at MEI Bridal Couture.`;
+    const description = product.short_description || product.description || `Buy ${product.name} at WNR Bridal Studio.`;
     const image = product.images?.[0] || product.image_url || "/images/hero_lehenga.png";
     return {
       title,
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = await getCategoryBySlug(normalizedSlug);
   if (category) {
     const title = category.name;
-    const description = category.description || `Explore our ${category.name} collection at MEI Bridal Couture.`;
+    const description = category.description || `Explore our ${category.name} collection at WNR Bridal Studio.`;
     const image = category.image_url || "/images/hero_lehenga.png";
     return {
       title,
@@ -91,7 +91,7 @@ export default async function ProductDetailPage({ params }: Props) {
       "sku": product.id,
       "brand": {
         "@type": "Brand",
-        "name": "MEI Bridal Couture",
+        "name": "WNR Bridal Studio",
       },
       "category": product.category?.name ?? undefined,
       "url": `${SITE_URL}/shop/${normalizedSlug}`,

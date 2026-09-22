@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCartStore } from "@/store/cart";
 import { useWishlistStore } from "@/store/wishlist";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SearchModal from "@/components/search/SearchModal";
 import type { Product, Category } from "@/types";
 
@@ -16,10 +16,23 @@ export default function Header({ products, categories }: { products: Product[]; 
   const [mounted, setMounted] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
+  const navScrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+  }, []);
+
+  // Recompute which overflow arrows should show, based on the nav strip's
+  // current scroll position relative to its full scrollable width.
+  const updateNavScrollState = useCallback(() => {
+    const el = navScrollRef.current;
+    if (!el) return;
+    const hasOverflow = el.scrollWidth > el.clientWidth + 1;
+    setCanScrollLeft(hasOverflow && el.scrollLeft > 1);
+    setCanScrollRight(hasOverflow && el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
   }, []);
 
   const handleSearchClose = () => {
@@ -38,31 +51,58 @@ export default function Header({ products, categories }: { products: Product[]; 
     { href: "/contact", label: "Contact" },
   ];
 
+  useEffect(() => {
+    const el = navScrollRef.current;
+    if (!el) return;
+
+    updateNavScrollState();
+
+    el.addEventListener("scroll", updateNavScrollState, { passive: true });
+    window.addEventListener("resize", updateNavScrollState);
+
+    const resizeObserver = new ResizeObserver(() => updateNavScrollState());
+    resizeObserver.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", updateNavScrollState);
+      window.removeEventListener("resize", updateNavScrollState);
+      resizeObserver.disconnect();
+    };
+  }, [updateNavScrollState, navLinks.length]);
+
+  const scrollNav = (direction: "left" | "right") => {
+    const el = navScrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.6;
+    el.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" });
+  };
+
   return (
     <>
       <header className="top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e8e0d5]/60 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 mt-7 mb-0">
           {/* Row 1: Logo & Icons */}
           <div className="relative flex justify-between items-center h-12">
-            {/* Invisible Spacer to center logo */}
-            <div className="flex-1 md:block hidden" />
+            {/* Invisible Spacer to balance the right-side icons at every breakpoint */}
+            <div className="flex-1" />
 
-            {/* Logo (Centered) */}
-            <div className="flex-1 text-center md:absolute md:left-1/2 md:-translate-x-1/2 flex flex-col items-center">
+            {/* Logo (Centered) — absolutely centered relative to the row so it stays
+                truly centered regardless of how wide the left/right controls are */}
+            <div className="absolute left-1/2 -translate-x-1/2 text-center flex flex-col items-center">
               <Link href="/" className="inline-flex flex-col items-center group">
                 <Image
-                  src="/images/elephant-gold.png"
-                  alt="MEI Bridal Couture"
-                  width={280}
-                  height={164}
+                  src="/images/app-logo.png"
+                  alt="WNR Bridal Studio"
+                  width={200}
+                  height={200}
                   priority
-                  className="h-9 w-auto mb-1 select-none"
+                  className="h-12 w-12 mb-1 select-none"
                 />
                 <span className="block text-3xl font-bold tracking-[0.25em] uppercase text-[#0B5563] group-hover:text-[#14606E] transition-colors duration-300 font-inter select-none leading-none text-center">
-                  MEI
+                  WNR
                 </span>
                 <span className="block text-[10px] font-bold uppercase tracking-[0.35em] text-[#c9a465] group-hover:text-[#d4b87a] transition-colors duration-300 mt-1 font-inter text-center">
-                  BRIDAL COUTURE
+                  BRIDAL STUDIO
                 </span>
               </Link>
             </div>
@@ -149,26 +189,73 @@ export default function Header({ products, categories }: { products: Product[]; 
           </div>
 
           {/* Row 2: Centered Navigation links */}
-          <div className="mt-4 flex justify-start md:justify-center pt-4 overflow-x-auto scrollbar-none w-full">
-            <nav className="flex space-x-8 sm:space-x-12 px-6 md:px-0 whitespace-nowrap">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className={`text-xs sm:text-[13px] font-inter font-medium uppercase tracking-[0.18em] transition-all pb-1.5 relative group hover:text-[#c9a465] ${isActive ? "text-[#c9a465]" : "text-[#4a4a4a]"
-                      }`}
-                  >
-                    {link.label}
-                    <span
-                      className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-[#c9a465] transform transition-transform duration-300 origin-left ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+          <div className="relative mt-4 pt-4">
+            {canScrollLeft && (
+              <button
+                type="button"
+                onClick={() => scrollNav("left")}
+                aria-label="Scroll navigation left"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-7 h-7 bg-white shadow-sm border border-[#e8e0d5] text-[#1a1a1a] hover:text-[#c9a465] transition-colors duration-300 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+              </button>
+            )}
+
+            <div
+              ref={navScrollRef}
+              className={`flex justify-start md:justify-center overflow-x-auto scrollbar-none w-full ${canScrollLeft ? "pl-8" : ""} ${canScrollRight ? "pr-8" : ""}`}
+            >
+              <nav className="flex space-x-8 sm:space-x-12 px-6 md:px-0 whitespace-nowrap">
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={`text-xs sm:text-[13px] font-inter font-medium uppercase tracking-[0.18em] transition-all pb-1.5 relative group hover:text-[#c9a465] ${isActive ? "text-[#c9a465]" : "text-[#4a4a4a]"
                         }`}
-                    />
-                  </Link>
-                );
-              })}
-            </nav>
+                    >
+                      {link.label}
+                      <span
+                        className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-[#c9a465] transform transition-transform duration-300 origin-left ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                          }`}
+                      />
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {canScrollRight && (
+              <button
+                type="button"
+                onClick={() => scrollNav("right")}
+                aria-label="Scroll navigation right"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-7 h-7 bg-white shadow-sm border border-[#e8e0d5] text-[#1a1a1a] hover:text-[#c9a465] transition-colors duration-300 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </header>

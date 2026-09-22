@@ -9,7 +9,7 @@ export default function Footer({ categories }: { categories: Category[] }) {
           {/* Brand Column */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold  font-inter uppercase text-[#0B5563]">
-              MEI BRIDAL COUTURE
+              WNR BRIDAL STUDIO
             </h3>
             <p className="text-sm text-[#4a4a4a] leading-relaxed font-inter">
              Crafting timeless elegance and preserving heritage through bespoke couture.
@@ -69,15 +69,15 @@ export default function Footer({ categories }: { categories: Category[] }) {
             </h4>
             <address className="space-y-2 text-sm text-[#4a4a4a] font-inter leading-relaxed not-italic">
               <p>
-                17 Lourdh Swamy Pillai Street, Ayyappan Nagar,
+                115 D, First Floor, TIDEL Park, No.4,
                 <br />
-                K.K. Nagar (near Perumal Temple),
+                Rajiv Gandhi Salai, Taramani,
                 <br />
-                Tiruchirappalli, Tamil Nadu 620021
+                Chennai - 600113
               </p>
               <p>
                 <a
-                  href="mailto:admin@couturemei.com"
+                  href="mailto:admin@wnrtech.com"
                   className="hover:text-[#c9a465] transition-colors duration-300"
                 >
                   Email us
@@ -85,10 +85,10 @@ export default function Footer({ categories }: { categories: Category[] }) {
               </p>
               <p>
                 <a
-                  href="tel:+919930100431"
+                  href="tel:+914445566778"
                   className="hover:text-[#c9a465] transition-colors duration-300"
                 >
-                  +91 99301 00431
+                  +91 44 4556 6778
                 </a>
               </p>
             </address>
@@ -97,7 +97,7 @@ export default function Footer({ categories }: { categories: Category[] }) {
 
         <div className="mt-10 pt-4 border-t border-[#e8e0d5]  sm:flex-row  items-center align-middle">
           <p className="text-xs text-[#9a9a9a] uppercase tracking-wider font-inter text-center">
-            © {new Date().getFullYear()} MEI Bridal Couture. All Rights Reserved.
+            © {new Date().getFullYear()} WNR Bridal Studio. All Rights Reserved.
           </p>
         </div>
       </div>
